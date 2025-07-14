@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EMDR Session - Voice Agent</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      background: url("https://cdn.pixabay.com/photo/2016/11/29/09/08/beach-1867285_1280.jpg") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.4);
+      backdrop-filter: blur(4px);
+      z-index: 1;
+    }
+
+    .content {
+      z-index: 2;
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .button {
+      padding: 14px 28px;
+      font-size: 16px;
+      margin: 10px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .start {
+      background-color: #27ae60;
+      color: white;
+    }
+
+    .start:hover {
+      background-color: #1e8449;
+    }
+
+    .stop {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    .stop:hover {
+      background-color: #c0392b;
+    }
+
+    #status {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #34495e;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    .mic-icon {
+      margin-top: 25px;
+      font-size: 60px;
+      color: #2c3e50;
+      opacity: 0;
+      transform: scale(1);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .mic-active {
+      opacity: 1;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        color: #2c3e50;
+      }
+      50% {
+        transform: scale(1.3);
+        color: #16a085;
+      }
+      100% {
+        transform: scale(1);
+        color: #2c3e50;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay"></div>
+
+  <div class="content">
+    <h1>🧘‍♀️ مرحبًا بك في جلسة العلاج النفسي</h1>
+    <p>نُرحب بك في هذه الجلسة المريحة باستخدام Agent صوتي داعم.</p>
+
+    <button class="button start" onclick="startCall()">▶️ بدء الجلسة</button>
+    <button class="button stop" onclick="stopCall()">⏹️ إنهاء الجلسة</button>
+
+    <div id="status">⚪ في انتظار بدء الجلسة...</div>
+    <div class="mic-icon" id="mic">🎤</div>
+  </div>
+
+  <!-- صوت هادئ مريح -->
+  <audio id="bg-audio" autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/10/31/audio_2d32b7b9e5.mp3" type="audio/mpeg">
+  </audio>
+
+  <script type="module">
+    import { RetellWebClient } from "https://cdn.skypack.dev/retell-client-js-sdk";
+
+    const retellWebClient = new RetellWebClient();
+
+    async function startCall() {
+      const status = document.getElementById("status");
+      const mic = document.getElementById("mic");
+      status.innerText = "⏳ جاري الاتصال...";
+
+      try {
+        const res = await fetch("http://127.0.0.1:5000/api/create-call", {
+          method: "POST",
+        });
+
+        const data = await res.json();
+
+        if (!data.access_token) {
+          status.innerText = "❌ فشل في بدء الجلسة.";
+          return;
+        }
+
+        await retellWebClient.startCall({
+          accessToken: data.access_token,
+          sampleRate: 24000,
+          emitRawAudioSamples: false,
+        });
+
+        status.innerText = "🟢 الجلسة بدأت بنجاح.";
+
+        retellWebClient.on("update", (update) => {
+          console.log("📋 التحديث:", update.transcript);
+        });
+
+        retellWebClient.on("agent_start_talking", () => {
+          console.log("🗣️ بدأ الـ Agent في التحدث");
+          mic.classList.add("mic-active");
+        });
+
+        retellWebClient.on("agent_stop_talking", () => {
+          console.log("🤐 توقف الـ Agent عن التحدث");
+          mic.classList.remove("mic-active");
+        });
+
+        retellWebClient.on("call_ended", () => {
+          status.innerText = "🔴 الجلسة انتهت.";
+          mic.classList.remove("mic-active");
+        });
+
+        retellWebClient.on("error", (err) => {
+          console.error("❌ خطأ:", err);
+          retellWebClient.stopCall();
+          status.innerText = "❌ حصل خطأ أثناء الجلسة.";
+          mic.classList.remove("mic-active");
+        });
+
+      } catch (err) {
+        console.error("❌ فشل:", err);
+        status.innerText = "❌ تعذر الاتصال بالخادم.";
+        mic.classList.remove("mic-active");
+      }
+    }
+
+    function stopCall() {
+      retellWebClient.stopCall();
+      document.getElementById("status").innerText = "🔴 تم إنهاء الجلسة.";
+      document.getElementById("mic").classList.remove("mic-active");
+    }
+
+    // عشان الأزرار تشتغل من HTML
+    window.startCall = startCall;
+    window.stopCall = stopCall;
+  </script>
+
+</body>
+</html>
