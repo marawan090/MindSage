@@ -3398,3 +3398,446 @@ body {
   display: block;
   margin-top: 8px;
 }
+
+/* ================================
+   Language Switcher Styles
+   ================================ */
+
+/* Language Switcher Container */
+.language-switcher {
+    position: relative;
+    display: inline-block;
+    margin-right: 16px;
+}
+
+/* Language Button */
+.language-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    font-size: 0.9rem;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    white-space: nowrap;
+    min-width: 120px;
+}
+
+.language-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(0, 212, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.language-btn:focus {
+    outline: 2px solid var(--electric-turquoise);
+    outline-offset: 2px;
+}
+
+/* Language Button Elements */
+.language-btn .flag {
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.language-btn .lang-text {
+    flex: 1;
+    text-align: left;
+}
+
+.language-btn .fa-chevron-down {
+    font-size: 0.8rem;
+    transition: transform var(--transition-base);
+    color: var(--text-secondary);
+}
+
+/* Language Dropdown */
+.language-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition-base);
+    z-index: 1000;
+    backdrop-filter: blur(20px);
+}
+
+.language-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Language Options */
+.language-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 0.9rem;
+    width: 100%;
+    text-align: left;
+    position: relative;
+}
+
+.language-option:hover {
+    background: rgba(0, 212, 255, 0.05);
+    color: var(--electric-turquoise);
+}
+
+.language-option.active {
+    background: rgba(0, 212, 255, 0.1);
+    color: var(--electric-turquoise);
+    font-weight: 600;
+}
+
+.language-option .flag {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.language-option .lang-text {
+    flex: 1;
+}
+
+.language-option .fa-check {
+    font-size: 0.8rem;
+    color: var(--electric-turquoise);
+}
+
+/* ================================
+   RTL (Right-to-Left) Support
+   ================================ */
+
+/* RTL Body Styles */
+body.rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+body.rtl .nav-container {
+    direction: rtl;
+}
+
+body.rtl .nav-links {
+    direction: rtl;
+}
+
+body.rtl .nav-buttons {
+    direction: rtl;
+}
+
+body.rtl .language-switcher {
+    margin-right: 0;
+    margin-left: 16px;
+}
+
+body.rtl .language-dropdown {
+    right: auto;
+    left: 0;
+}
+
+body.rtl .language-btn .lang-text {
+    text-align: right;
+}
+
+body.rtl .language-option {
+    text-align: right;
+}
+
+/* RTL Hero Section */
+body.rtl .hero-content {
+    text-align: right;
+}
+
+body.rtl .hero-title {
+    direction: rtl;
+}
+
+body.rtl .hero-subtitle {
+    direction: rtl;
+}
+
+body.rtl .hero-cta {
+    direction: rtl;
+}
+
+body.rtl .hero-reassurance {
+    direction: rtl;
+}
+
+/* RTL Features Section */
+body.rtl .features-header {
+    text-align: right;
+}
+
+body.rtl .feature-card {
+    text-align: right;
+}
+
+body.rtl .feature-card h3 {
+    direction: rtl;
+}
+
+body.rtl .feature-card p {
+    direction: rtl;
+}
+
+/* RTL Footer */
+body.rtl .footer-content {
+    direction: rtl;
+}
+
+body.rtl .footer-links {
+    direction: rtl;
+}
+
+body.rtl .footer-bottom {
+    text-align: right;
+}
+
+/* ================================
+   Arabic Font Support
+   ================================ */
+
+/* Import Arabic fonts */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap');
+
+/* Arabic Typography */
+body.lang-ar,
+body.lang-ar_eg,
+body.lang-ar_gulf {
+    font-family: 'Noto Sans Arabic', 'Amiri', 'Tahoma', 'Arial Unicode MS', sans-serif;
+    line-height: 1.8;
+}
+
+body.lang-ar h1, body.lang-ar h2, body.lang-ar h3, body.lang-ar h4, body.lang-ar h5, body.lang-ar h6,
+body.lang-ar_eg h1, body.lang-ar_eg h2, body.lang-ar_eg h3, body.lang-ar_eg h4, body.lang-ar_eg h5, body.lang-ar_eg h6,
+body.lang-ar_gulf h1, body.lang-ar_gulf h2, body.lang-ar_gulf h3, body.lang-ar_gulf h4, body.lang-ar_gulf h5, body.lang-ar_gulf h6 {
+    font-family: 'Amiri', 'Noto Sans Arabic', serif;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+/* Arabic Text Improvements */
+body.lang-ar .hero-title,
+body.lang-ar_eg .hero-title,
+body.lang-ar_gulf .hero-title {
+    font-size: 2.8rem;
+    line-height: 1.3;
+}
+
+body.lang-ar .hero-subtitle,
+body.lang-ar_eg .hero-subtitle,
+body.lang-ar_gulf .hero-subtitle {
+    font-size: 1.3rem;
+    line-height: 1.7;
+}
+
+/* ================================
+   Responsive Language Switcher
+   ================================ */
+
+@media (max-width: 768px) {
+    .language-switcher {
+        margin-right: 8px;
+    }
+    
+    body.rtl .language-switcher {
+        margin-right: 0;
+        margin-left: 8px;
+    }
+    
+    .language-btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        min-width: 100px;
+    }
+    
+    .language-btn .lang-text {
+        display: none;
+    }
+    
+    .language-btn .flag {
+        font-size: 1.4rem;
+    }
+    
+    .language-dropdown {
+        min-width: 180px;
+        right: -40px;
+    }
+    
+    body.rtl .language-dropdown {
+        right: auto;
+        left: -40px;
+    }
+    
+    /* Arabic typography adjustments for mobile */
+    body.lang-ar .hero-title,
+    body.lang-ar_eg .hero-title,
+    body.lang-ar_gulf .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    body.lang-ar .hero-subtitle,
+    body.lang-ar_eg .hero-subtitle,
+    body.lang-ar_gulf .hero-subtitle {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .language-btn {
+        padding: 6px 10px;
+        min-width: 80px;
+    }
+    
+    .language-dropdown {
+        min-width: 160px;
+        right: -60px;
+    }
+    
+    body.rtl .language-dropdown {
+        right: auto;
+        left: -60px;
+    }
+    
+    .language-option {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+    
+    /* Further Arabic typography adjustments */
+    body.lang-ar .hero-title,
+    body.lang-ar_eg .hero-title,
+    body.lang-ar_gulf .hero-title {
+        font-size: 1.8rem;
+    }
+}
+
+/* ================================
+   Language Switcher Animations
+   ================================ */
+
+/* Smooth language transition effect */
+.language-transition {
+    transition: all 0.5s ease;
+}
+
+/* Loading state for language switch */
+.language-loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.language-loading .language-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--electric-turquoise);
+    border-radius: 50%;
+    animation: languageSpinner 1s linear infinite;
+}
+
+@keyframes languageSpinner {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Fade transition for content */
+.fade-transition {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.fade-transition.visible {
+    opacity: 1;
+}
+
+/* ================================
+   Accessibility Improvements
+   ================================ */
+
+/* Focus styles for language switcher */
+.language-btn:focus,
+.language-option:focus {
+    outline: 3px solid var(--electric-turquoise);
+    outline-offset: 2px;
+}
+
+/* Screen reader text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .language-btn {
+        border: 2px solid #000;
+        background: #fff;
+        color: #000;
+    }
+    
+    .language-dropdown {
+        border: 2px solid #000;
+        background: #fff;
+    }
+    
+    .language-option:hover,
+    .language-option.active {
+        background: #000;
+        color: #fff;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .language-btn,
+    .language-dropdown,
+    .language-option,
+    .fade-transition {
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .language-dropdown {
+        transform: none;
+    }
+    
+    .language-dropdown.active {
+        transform: none;
+    }
+}
