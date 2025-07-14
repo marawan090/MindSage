@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindSage - Your Mind Deserves Peace</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="MindSage - AI-powered mental health platform for Arabic-speaking users. Get therapy, EMDR sessions, and emotional support.">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-brain"></i>
+                <span>MindSage</span>
+            </div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Floating Shapes Background -->
+    <div class="floating-shapes" aria-hidden="true">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-brain" aria-hidden="true"></i>
+                <span>MindSage</span>
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links" role="menubar">
+                    <li role="none"><a href="index.html" class="nav-link active" role="menuitem" aria-current="page">Home</a></li>
+                    <li role="none"><a href="chatbot.html" class="nav-link" role="menuitem">AI Chatbot</a></li>
+                    <li role="none"><a href="" class="nav-link" role="menuitem">EMDR Session</a></li>
+                    <li role="none"><a href="cbt-exercises.html" class="nav-link" role="menuitem">CBT exercises</a></li>
+                    <li role="none"><a href="#community" class="nav-link" role="menuitem">Community</a></li>
+                    <li role="none"><a href="pricing.html" class="nav-link" role="menuitem">Pricing</a></li>
+                    <li role="none"><a href="terms.html" class="nav-link" role="menuitem">Terms and Conditions</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="login.html" class="btn-login" aria-label="Login to your account">Login</a>
+                </div>
+            </div>
+            <button class="hamburger" id="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navMenu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home" role="banner">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Your mind deserves peace. 
+                    <span class="gradient-text">We'll help you find it.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    MindSage is your safe space for AI-assisted trauma recovery, voice-based therapy, 
+                    and emotional balance — built for Arabic-speaking hearts.
+                </p>
+                <div class="hero-cta">
+                    <a href="signup.html" class="btn-hero" aria-label="Start your first therapy session for free">
+                        <i class="fas fa-play" aria-hidden="true"></i>
+                        Start First Session for Free
+                    </a>
+                    <p class="hero-reassurance">
+                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                        No credit card required. 100% private.
+                    </p>
+                </div>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <div class="hero-circle">
+                    <div class="pulse-ring"></div>
+                    <div class="pulse-ring pulse-ring-delay"></div>
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features" role="main">
+        <div class="container">
+            <div class="features-header">
+                <h2>How MindSage Supports Your Journey</h2>
+                <p>Discover the tools and features designed to guide you toward emotional wellness</p>
+            </div>
+            <div class="features-grid">
+                <article class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon" aria-hidden="true">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Chatbot Therapy</h3>
+                    <p>A smart, empathetic chatbot that screens for PTSD and walks users through culturally-adapted CBT exercises.</p>
+                </article>
+                <article class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon" aria-hidden="true">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <h3>Voice-Guided EMDR Sessions</h3>
+                    <p>Scientifically-backed, immersive EMDR therapy with synchronized audio and visual bilateral stimulation.</p>
+                </article>
+                <article class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon" aria-hidden="true">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Smart CBT Exercises</h3>
+                    <p>Interactive cognitive behavioral therapy exercises powered by AI to help you identify and change negative thought patterns.</p>
+                </article>
+                <article class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon" aria-hidden="true">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Supportive Community</h3>
+                    <p>A moderated space to listen, connect, and share anonymously — free to view, subscription to post.</p>
+                </article>
+                <article class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon" aria-hidden="true">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Personal Dashboard</h3>
+                    <p>Track session history, emotional progress, and AI insights on your healing journey.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-brain" aria-hidden="true"></i>
+                    <span>MindSage</span>
+                </div>
+                <nav class="footer-links" aria-label="Footer navigation">
+                    <!-- Remove Terms and Privacy links -->
+                    <a href="#contact">Contact Us</a>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MindSage. All rights reserved.</p>
+                <p class="footer-heart">This website made by MindSage Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Contact Us section -->
+    <section id="contact" class="contact-section" style="max-width:600px;margin:40px auto 60px auto;padding:32px 24px;background:#fff;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,0.06);color:#222;">
+        <h2 style="margin-top:0;margin-bottom:18px;font-size:2rem;">Contact Us</h2>
+        <p style="font-size:1.1rem;">For any questions or support, email us at: <a href="mailto:mingsage.ai@gmail.com">mingsage.ai@gmail.com</a></p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

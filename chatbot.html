@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot - MindSage</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Chat with MindSage AI - Your compassionate mental health companion">
+</head>
+<body>
+    <!-- Floating Shapes Background -->
+    <div class="floating-shapes" aria-hidden="true">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-brain" aria-hidden="true"></i>
+                <span>MindSage</span>
+            </a>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="signup.html" class="btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Chat Container -->
+    <div class="chat-container">
+        <!-- Chat Header -->
+        <div class="chat-header">
+            <div class="assistant-info">
+                <div class="assistant-avatar">
+                    <i class="fas fa-robot"></i>
+                    <div class="status-indicator online"></div>
+                </div>
+                <div class="assistant-details">
+                    <h2>MindSage AI</h2>
+                    <p class="status-text">Online • Ready to help</p>
+                </div>
+            </div>
+            <div class="chat-actions">
+                <button class="action-btn" id="clearChat" title="Clear conversation">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+                <button class="action-btn" id="minimizeChat" title="Minimize chat">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Chat conversation">
+            <!-- Welcome Message -->
+            <div class="message assistant-message welcome-message">
+                <div class="message-avatar">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-bubble">
+                        <p>مرحباً بك في MindSage! 🌟</p>
+                        <p>أنا هنا لدعمك ومساعدتك في رحلتك نحو الصحة النفسية والعاطفية. لا تتردد في مشاركة ما يدور في ذهنك - هذا مكان آمن للتعبير عن مشاعرك.</p>
+                        <p>كيف يمكنني مساعدتك اليوم؟</p>
+                    </div>
+                    <div class="message-time">Just now</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typing Indicator -->
+        <div class="typing-indicator" id="typingIndicator" style="display: none;">
+            <div class="message-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="typing-content">
+                <div class="typing-bubble">
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="chat-input-container">
+            <div class="chat-input-wrapper">
+                <div class="input-group">
+                    <textarea 
+                        id="messageInput" 
+                        class="message-input" 
+                        placeholder="اكتب رسالتك هنا... لا تتردد في التعبير عن مشاعرك"
+                        rows="1"
+                        maxlength="2000"
+                        aria-label="Type your message"
+                    ></textarea>
+                    <button 
+                        id="sendButton" 
+                        class="send-button" 
+                        type="button"
+                        aria-label="Send message"
+                        disabled
+                    >
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-info">
+                    <span class="char-count">
+                        <span id="charCount">0</span>/2000
+                    </span>
+                    <span class="privacy-note">
+                        <i class="fas fa-lock"></i>
+                        محمي وسري
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connection Status -->
+        <div class="connection-status" id="connectionStatus" style="display: none;">
+            <div class="status-content">
+                <i class="fas fa-wifi"></i>
+                <span>Connecting...</span>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage" style="display: none;">
+            <div class="error-content">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span class="error-text">Something went wrong. Please try again.</span>
+                <button class="retry-button" id="retryButton">
+                    <i class="fas fa-redo"></i>
+                    Retry
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Support Notice -->
+    <div class="emergency-notice">
+        <div class="notice-content">
+            <i class="fas fa-phone"></i>
+            <span>في حالة الطوارئ: اتصل بـ 16328 أو أقرب مستشفى</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="chatbot.js"></script>
+</body>
+</html>
