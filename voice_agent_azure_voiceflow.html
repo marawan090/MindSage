@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>Voice Agent EMDR</title>
+  <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 50px; background: #f4f4f4; }
+    button { font-size: 18px; padding: 10px 20px; margin: 10px; }
+    #output { white-space: pre-line; background: white; padding: 20px; margin-top: 20px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+
+<h1>🎙️ EMDR Voice Agent</h1>
+<button onclick="startAgent()">ابدأ التحدث</button>
+<div id="output">...</div>
+
+<script>
+  const subscriptionKey = "6QpWvzaNFJMFoYFi9YNkPSWMaBw5PfYqdFvhJKqoFa3kFAcIRbTCJQQJ99BGACF24PCXJ3w3AAAYACOGoI9i";
+  const serviceRegion = "uaenorth";
+
+  const voiceflowKey = "VF.DM.6875345ad5538bb1efd11c48.O6jGCPCvrYS6VbAw";
+  const versionID = "68715bc940045b6788bb5652";
+  const userID = "test_user";
+
+  const elevenLabsKey = "YOUR_ELEVENLABS_API_KEY";
+  const voiceId = "YOUR_ELEVENLABS_VOICE_ID"; // مثال: "pNInz6obpgDQGcFmaJgB"
+
+  async function speakWithElevenLabs(text) {
+    const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?optimize_streaming_latency=0`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "xi-api-key": elevenLabsKey,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        text,
+        voice_settings: {
+          stability: 0.5,
+          similarity_boost: 0.8
+        }
+      })
+    });
+
+    const audioBlob = await response.blob();
+    const audioUrl = URL.createObjectURL(audioBlob);
+    const audio = new Audio(audioUrl);
+    audio.play();
+  }
+
+  function startAgent() {
+    const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey, serviceRegion);
+    speechConfig.speechRecognitionLanguage = "ar-EG";
+    const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+    const recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+
+    document.getElementById("output").innerText = "🎧 جاري الاستماع...";
+
+    recognizer.recognizeOnceAsync(async result => {
+      const userText = result.text;
+      document.getElementById("output").innerText = "🗣️ أنت: " + userText;
+
+      const res = await fetch(`https://general-runtime.voiceflow.com/state/${versionID}/${userID}/interact`, {
+        method: "POST",
+        headers: {
+          "Authorization": voiceflowKey,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          action: {
+            type: "text",
+            payload: userText
+          },
+          config: {
+            tts: false,
+            stripSSML: true
+          }
+        })
+      });
+
+      const data = await res.json();
+      const reply = data.find(m => m.type === "text")?.payload?.message || "❌ مفيش رد.";
+
+      document.getElementById("output").innerText += `\n🤖 الوكيل: ${reply}`;
+      await speakWithElevenLabs(reply);
+    });
+  }
+</script>
+
+</body>
+</html>
