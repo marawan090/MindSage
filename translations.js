@@ -3,6 +3,10 @@
 
 const translations = {
     en: {
+        // Meta and Title
+        pageTitle: "MindSage - Your Mind Deserves Peace",
+        metaDescription: "MindSage - AI-powered mental health platform for Arabic-speaking users. Get therapy, EMDR sessions, and emotional support.",
+        
         // Navigation
         home: "Home",
         aiChatbot: "AI Chatbot",
@@ -58,6 +62,10 @@ const translations = {
     },
     
     ar: {
+        // Meta and Title
+        pageTitle: "مايند سيج - عقلك يستحق السكينة",
+        metaDescription: "مايند سيج - منصة الصحة النفسية المدعومة بالذكاء الاصطناعي للمتحدثين بالعربية. احصل على العلاج وجلسات EMDR والدعم العاطفي.",
+        
         // Navigation
         home: "الرئيسية",
         aiChatbot: "المساعد الذكي",
@@ -113,6 +121,10 @@ const translations = {
     },
     
     ar_eg: {
+        // Meta and Title
+        pageTitle: "مايند سيج - دماغك تستاهل الراحة",
+        metaDescription: "مايند سيج - منصة الصحة النفسية بالذكاء الاصطناعي للمتكلمين بالعربي. اعمل علاج وجلسات EMDR ودعم نفسي.",
+        
         // Navigation
         home: "البيت",
         aiChatbot: "الشات بوت",
@@ -168,6 +180,10 @@ const translations = {
     },
     
     ar_gulf: {
+        // Meta and Title
+        pageTitle: "مايند سيج - عقلك يستاهل الراحة",
+        metaDescription: "مايند سيج - منصة الصحة النفسية بالذكاء الاصطناعي للمتكلمين بالعربي. سو علاج وجلسات EMDR ودعم نفسي.",
+        
         // Navigation
         home: "الرئيسية",
         aiChatbot: "البوت الذكي",

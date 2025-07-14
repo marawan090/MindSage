@@ -173,6 +173,9 @@ class LanguageSwitcher {
         document.documentElement.dir = languageConfig[lang].dir;
         document.body.className = `${document.body.className.replace(/\blang-\w+/g, '')} lang-${lang}`.trim();
 
+        // Update meta tags and title
+        this.updateMetaTags(translation, lang);
+
         // Apply translations to elements with data-translate attributes
         this.translateElements(translation);
         
@@ -190,6 +193,29 @@ class LanguageSwitcher {
         document.dispatchEvent(new CustomEvent('languageChanged', {
             detail: { language: lang, translation }
         }));
+    }
+
+    updateMetaTags(translation, lang) {
+        // Update page title
+        const title = translation.pageTitle || 'MindSage - Your Mind Deserves Peace';
+        document.title = title;
+
+        // Update meta description
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc && translation.metaDescription) {
+            metaDesc.setAttribute('content', translation.metaDescription);
+        }
+
+        // Update Open Graph tags if they exist
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle && translation.pageTitle) {
+            ogTitle.setAttribute('content', translation.pageTitle);
+        }
+
+        const ogDesc = document.querySelector('meta[property="og:description"]');
+        if (ogDesc && translation.metaDescription) {
+            ogDesc.setAttribute('content', translation.metaDescription);
+        }
     }
 
     translateElements(translation) {

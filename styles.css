@@ -3400,7 +3400,7 @@ body {
 }
 
 /* ================================
-   Language Switcher Styles
+   Professional Language Switcher Styles
    ================================ */
 
 /* Language Switcher Container */
@@ -3410,129 +3410,267 @@ body {
     margin-right: 16px;
 }
 
-/* Language Button */
+/* Professional Language Button */
 .language-btn {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
+    gap: 10px;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.95) 0%, 
+        rgba(255, 255, 255, 0.85) 100%);
+    border: 2px solid transparent;
+    border-radius: 16px;
     color: var(--text-primary);
     cursor: pointer;
-    transition: all var(--transition-base);
-    font-size: 0.9rem;
-    font-weight: 500;
-    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.95rem;
+    font-weight: 600;
+    backdrop-filter: blur(20px);
     white-space: nowrap;
-    min-width: 120px;
+    min-width: 140px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.language-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        var(--electric-turquoise) 0%, 
+        var(--soft-violet) 50%, 
+        var(--warm-pink) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: 14px;
 }
 
 .language-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(0, 212, 255, 0.3);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-1px);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+        0 8px 32px rgba(0, 212, 255, 0.15),
+        0 4px 16px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.language-btn:hover::before {
+    opacity: 0.08;
+}
+
+.language-btn:active {
+    transform: translateY(-1px) scale(1.01);
+    transition: all 0.2s ease;
 }
 
 .language-btn:focus {
-    outline: 2px solid var(--electric-turquoise);
-    outline-offset: 2px;
+    outline: 3px solid var(--electric-turquoise);
+    outline-offset: 3px;
+    box-shadow: 
+        0 8px 32px rgba(0, 212, 255, 0.2),
+        0 0 0 1px rgba(0, 212, 255, 0.3);
 }
 
-/* Language Button Elements */
+/* Professional Language Button Elements */
 .language-btn .flag {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.language-btn:hover .flag {
+    transform: scale(1.1) rotate(2deg);
 }
 
 .language-btn .lang-text {
     flex: 1;
     text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 2;
 }
 
 .language-btn .fa-chevron-down {
-    font-size: 0.8rem;
-    transition: transform var(--transition-base);
+    font-size: 0.9rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     color: var(--text-secondary);
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 }
 
-/* Language Dropdown */
+.language-btn:hover .fa-chevron-down {
+    color: var(--electric-turquoise);
+    transform: scale(1.1);
+}
+
+/* Professional Language Dropdown */
 .language-dropdown {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 12px);
     right: 0;
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    min-width: 200px;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.98) 0%, 
+        rgba(255, 255, 255, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.15),
+        0 10px 30px rgba(0, 0, 0, 0.08),
+        0 4px 16px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    min-width: 220px;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-10px);
-    transition: all var(--transition-base);
+    transform: translateY(-20px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     z-index: 1000;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(30px);
+    border: 2px solid rgba(0, 212, 255, 0.1);
+}
+
+.language-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 24px;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.98) 0%, 
+        rgba(255, 255, 255, 0.95) 100%);
+    transform: rotate(45deg);
+    border-top: 2px solid rgba(0, 212, 255, 0.1);
+    border-left: 2px solid rgba(0, 212, 255, 0.1);
+    z-index: -1;
 }
 
 .language-dropdown.active {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
-/* Language Options */
+/* Professional Language Options */
 .language-option {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
+    gap: 14px;
+    padding: 16px 20px;
     border: none;
     background: transparent;
     color: var(--text-primary);
     cursor: pointer;
-    transition: all var(--transition-fast);
-    font-size: 0.9rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.95rem;
     width: 100%;
     text-align: left;
     position: relative;
+    font-weight: 500;
+    overflow: hidden;
+}
+
+.language-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(0, 212, 255, 0.05) 50%, 
+        transparent 100%);
+    transition: left 0.5s ease;
+}
+
+.language-option:hover::before {
+    left: 100%;
 }
 
 .language-option:hover {
-    background: rgba(0, 212, 255, 0.05);
+    background: linear-gradient(135deg, 
+        rgba(0, 212, 255, 0.08) 0%, 
+        rgba(192, 132, 252, 0.06) 100%);
     color: var(--electric-turquoise);
+    transform: translateX(6px);
+    box-shadow: inset 4px 0 0 rgba(0, 212, 255, 0.4);
 }
 
 .language-option.active {
-    background: rgba(0, 212, 255, 0.1);
+    background: linear-gradient(135deg, 
+        rgba(0, 212, 255, 0.12) 0%, 
+        rgba(192, 132, 252, 0.08) 100%);
     color: var(--electric-turquoise);
-    font-weight: 600;
+    font-weight: 700;
+    transform: translateX(8px);
+    box-shadow: inset 4px 0 0 var(--electric-turquoise);
+}
+
+.language-option:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .language-option .flag {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+}
+
+.language-option:hover .flag {
+    transform: scale(1.15) rotate(-2deg);
+}
+
+.language-option.active .flag {
+    transform: scale(1.2);
+    filter: drop-shadow(0 4px 8px rgba(0, 212, 255, 0.3));
 }
 
 .language-option .lang-text {
     flex: 1;
+    font-weight: inherit;
+    letter-spacing: 0.3px;
 }
 
 .language-option .fa-check {
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: var(--electric-turquoise);
+    filter: drop-shadow(0 2px 4px rgba(0, 212, 255, 0.3));
+    animation: checkmark-bounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes checkmark-bounce {
+    0% { transform: scale(0) rotate(180deg); opacity: 0; }
+    50% { transform: scale(1.2) rotate(0deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }
 
 /* ================================
-   RTL (Right-to-Left) Support
+   Enhanced RTL (Right-to-Left) Support
    ================================ */
 
 /* RTL Body Styles */
 body.rtl {
     direction: rtl;
     text-align: right;
+    font-family: 'Cairo', 'Amiri', 'Noto Sans Arabic', 'Tajawal', var(--font-primary);
+}
+
+body.rtl * {
+    font-feature-settings: "liga" off;
 }
 
 body.rtl .nav-container {
@@ -3545,8 +3683,10 @@ body.rtl .nav-links {
 
 body.rtl .nav-buttons {
     direction: rtl;
+    justify-content: flex-start;
 }
 
+/* Enhanced RTL Language Switcher */
 body.rtl .language-switcher {
     margin-right: 0;
     margin-left: 16px;
@@ -3557,25 +3697,46 @@ body.rtl .language-dropdown {
     left: 0;
 }
 
+body.rtl .language-dropdown::before {
+    right: auto;
+    left: 24px;
+}
+
 body.rtl .language-btn .lang-text {
     text-align: right;
 }
 
 body.rtl .language-option {
     text-align: right;
+    direction: rtl;
 }
 
-/* RTL Hero Section */
+body.rtl .language-option:hover {
+    transform: translateX(-6px);
+    box-shadow: inset -4px 0 0 rgba(0, 212, 255, 0.4);
+}
+
+body.rtl .language-option.active {
+    transform: translateX(-8px);
+    box-shadow: inset -4px 0 0 var(--electric-turquoise);
+}
+
+/* Enhanced RTL Typography */
 body.rtl .hero-content {
     text-align: right;
 }
 
 body.rtl .hero-title {
     direction: rtl;
+    font-family: 'Cairo', 'Amiri', 'Noto Sans Arabic', serif;
+    font-weight: 700;
+    line-height: 1.4;
 }
 
 body.rtl .hero-subtitle {
     direction: rtl;
+    font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
+    line-height: 1.6;
 }
 
 body.rtl .hero-cta {
@@ -3586,9 +3747,18 @@ body.rtl .hero-reassurance {
     direction: rtl;
 }
 
-/* RTL Features Section */
+/* Enhanced RTL Features Section */
 body.rtl .features-header {
     text-align: right;
+}
+
+body.rtl .features-header h2 {
+    font-family: 'Cairo', 'Amiri', 'Noto Sans Arabic', serif;
+    font-weight: 700;
+}
+
+body.rtl .features-header p {
+    font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
 }
 
 body.rtl .feature-card {
@@ -3597,6 +3767,49 @@ body.rtl .feature-card {
 
 body.rtl .feature-card h3 {
     direction: rtl;
+    font-family: 'Cairo', 'Amiri', 'Noto Sans Arabic', serif;
+    font-weight: 600;
+}
+
+body.rtl .feature-card p {
+    direction: rtl;
+    font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
+    line-height: 1.7;
+}
+
+/* RTL Footer */
+body.rtl .footer-content {
+    direction: rtl;
+    text-align: right;
+}
+
+body.rtl .footer-logo {
+    direction: rtl;
+    text-align: right;
+}
+
+body.rtl .footer-bottom {
+    direction: rtl;
+    text-align: right;
+}
+
+body.rtl .footer-bottom p {
+    font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
+}
+
+/* RTL Contact Section */
+body.rtl #contact {
+    direction: rtl;
+    text-align: right;
+}
+
+body.rtl #contact h2 {
+    font-family: 'Cairo', 'Amiri', 'Noto Sans Arabic', serif;
+    font-weight: 700;
+}
+
+body.rtl #contact p {
+    font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
 }
 
 body.rtl .feature-card p {
@@ -3739,44 +3952,118 @@ body.lang-ar_gulf .hero-subtitle {
    Language Switcher Animations
    ================================ */
 
+/* ================================
+   Professional Loading States & Animations
+   ================================ */
+
 /* Smooth language transition effect */
 .language-transition {
-    transition: all 0.5s ease;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Loading state for language switch */
+/* Enhanced loading state for language switch */
 .language-loading {
     pointer-events: none;
-    opacity: 0.7;
+    opacity: 0.8;
+    position: relative;
+}
+
+.language-loading .language-btn {
+    background: linear-gradient(135deg, 
+        rgba(0, 212, 255, 0.1) 0%, 
+        rgba(192, 132, 252, 0.1) 100%);
+    cursor: not-allowed;
 }
 
 .language-loading .language-btn::after {
     content: '';
     position: absolute;
     top: 50%;
-    left: 50%;
-    width: 16px;
-    height: 16px;
-    margin: -8px 0 0 -8px;
+    right: 20px;
+    width: 18px;
+    height: 18px;
+    margin: -9px 0 0 0;
     border: 2px solid transparent;
     border-top: 2px solid var(--electric-turquoise);
+    border-right: 2px solid var(--soft-violet);
     border-radius: 50%;
-    animation: languageSpinner 1s linear infinite;
+    animation: professionalSpinner 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    z-index: 3;
 }
 
-@keyframes languageSpinner {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+body.rtl .language-loading .language-btn::after {
+    right: auto;
+    left: 20px;
 }
 
-/* Fade transition for content */
+@keyframes professionalSpinner {
+    0% { 
+        transform: rotate(0deg) scale(1); 
+        opacity: 1; 
+    }
+    50% { 
+        transform: rotate(180deg) scale(1.1); 
+        opacity: 0.8; 
+    }
+    100% { 
+        transform: rotate(360deg) scale(1); 
+        opacity: 1; 
+    }
+}
+
+/* Professional fade transition for content */
 .fade-transition {
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transform: translateY(10px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .fade-transition.visible {
     opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered animation for dropdown options */
+.language-dropdown.active .language-option {
+    animation: slideInOption 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.language-dropdown.active .language-option:nth-child(1) { animation-delay: 0.1s; }
+.language-dropdown.active .language-option:nth-child(2) { animation-delay: 0.15s; }
+.language-dropdown.active .language-option:nth-child(3) { animation-delay: 0.2s; }
+.language-dropdown.active .language-option:nth-child(4) { animation-delay: 0.25s; }
+
+body.rtl .language-dropdown.active .language-option {
+    transform: translateX(20px);
+}
+
+@keyframes slideInOption {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Professional pulse effect for active flag */
+.language-option.active .flag {
+    animation: flagPulse 2s ease-in-out infinite;
+}
+
+@keyframes flagPulse {
+    0%, 100% { 
+        transform: scale(1.2); 
+        filter: drop-shadow(0 4px 8px rgba(0, 212, 255, 0.3)); 
+    }
+    50% { 
+        transform: scale(1.25); 
+        filter: drop-shadow(0 6px 12px rgba(0, 212, 255, 0.4)); 
+    }
 }
 
 /* ================================
