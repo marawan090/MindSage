@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>مجتمع MindSage</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+    :root {
+      --bg-gradient: linear-gradient(135deg, #23294f 0%, #212c44 100%);
+      --primary: #8be9fd;
+      --accent: #ffb86c;
+      --box: #273157;
+      --text: #f7f7fa;
+      --input-bg: #23294f;
+      --input-border: #374172;
+      --input-focus: #66d9ef;
+      --btn-bg: #515e99;
+      --btn-hover: #7aa7e9;
+      --shadow: 0 6px 24px rgba(0,0,0,0.09);
+      --danger: #ff5555;
+      --success: #50fa7b;
+      --avatar-bg: #23294f;
+      --avatar-border: #8be9fd;
+    }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Cairo', 'Segoe UI', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .bg-calm {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-calm span {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.09;
+      filter: blur(22px);
+      animation: float 12s infinite alternate ease-in-out;
+      background: var(--primary);
+    }
+    .bg-calm .c1 {width: 260px;height:260px;left:6vw;top:11vh;}
+    .bg-calm .c2 {width: 160px;height:160px;right:14vw;top:26vh;background:var(--accent);}
+    .bg-calm .c3 {width:92px;height:92px;left:35vw;top:82vh;background:var(--success);}
+    @keyframes float {
+      to { transform: translateY(34px) scale(1.11);}
+    }
+    .community-container {
+      z-index: 1;
+      background: var(--box);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 36px 24px 34px 24px;
+      max-width: 750px;
+      width: 98vw;
+      margin: 42px auto 18px auto;
+      position: relative;
+      text-align: right;
+      direction: rtl;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      animation: fadeIn 1s;
+      min-height: 84vh;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.97);}
+      100% { opacity: 1; transform: scale(1);}
+    }
+    .community-title {
+      font-size: 2.5em;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 13px;
+      letter-spacing: 1px;
+      text-align: center;
+      text-shadow: 0 1px 14px #23294f44;
+    }
+    .community-desc {
+      color: var(--accent);
+      font-size: 1.25em;
+      margin-bottom: 18px;
+      text-align: center;
+      line-height: 1.7;
+    }
+    .add-post-btn {
+      display: block;
+      background: var(--btn-bg);
+      color: var(--text);
+      border: none;
+      border-radius: 15px;
+      padding: 16px 0;
+      font-size: 1.3em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 10px #23294f22;
+      margin: 0 auto 30px auto;
+      width: 72%;
+      max-width: 390px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    .add-post-btn:hover {
+      background: var(--btn-hover);
+      color: #23294f;
+    }
+    .post-form-modal {
+      position: fixed;
+      z-index: 10;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: #212c447a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s;
+    }
+    .post-form {
+      background: linear-gradient(135deg, #23294f 0%, #273157 100%);
+      border-radius: 22px;
+      box-shadow: 0 2px 14px #0003;
+      padding: 25px 18px 22px 18px;
+      width: 95vw;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      position: relative;
+    }
+    .post-form input, .post-form textarea {
+      width: 100%;
+      border-radius: 12px;
+      border: 2px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--text);
+      font-size: 1em;
+      padding: 11px;
+      box-sizing: border-box;
+      transition: border 0.2s;
+      font-family: inherit;
+      outline: none;
+      resize: vertical;
+      margin-bottom: 4px;
+    }
+    .post-form input:focus, .post-form textarea:focus {
+      border-color: var(--input-focus);
+    }
+    .post-form input[type="text"] {
+      margin-bottom: 7px;
+    }
+    .post-form .btn {
+      margin-top: 8px;
+      background: var(--btn-bg);
+      color: var(--text);
+      border: none;
+      border-radius: 11px;
+      padding: 13px 0;
+      font-size: 1.07em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 1px 7px #23294f22;
+      letter-spacing: 0.5px;
+    }
+    .post-form .btn:hover {
+      background: var(--btn-hover);
+      color: #23294f;
+    }
+    .post-form .error {
+      color: var(--danger);
+      margin-top: 7px;
+      margin-bottom: -5px;
+      font-size: 0.97em;
+      text-align: center;
+      transition: opacity 0.2s;
+    }
+    .post-form .close-modal {
+      position: absolute;
+      left: 13px; top: 10px;
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 1.7em;
+      cursor: pointer;
+      opacity: 0.9;
+      transition: color 0.2s;
+    }
+    .post-form .close-modal:hover {
+      color: var(--danger);
+    }
+    .posts-list {
+      width: 99%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 44px;
+      flex: 1;
+    }
+    .post-box {
+      background: linear-gradient(135deg, #23294f 0%, #222842 100%);
+      border-radius: 22px;
+      box-shadow: 0 1px 18px #23294f24;
+      padding: 26px 18px 23px 18px;
+      color: var(--text);
+      font-size: 1.23em;
+      position: relative;
+      word-break: break-word;
+      transition: box-shadow 0.2s;
+      border: 2px solid #273157;
+      animation: fadeInPost 0.7s;
+      opacity: 1;
+      display: flex;
+      gap: 21px;
+      align-items: flex-start;
+      min-height: 138px;
+      font-family: inherit;
+    }
+    @keyframes fadeInPost {
+      0% { opacity: 0; transform: translateY(45px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+    .post-avatar {
+      background: var(--avatar-bg);
+      border: 2px solid var(--avatar-border);
+      border-radius: 50%;
+      width: 67px;
+      height: 67px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.3em;
+      color: var(--primary);
+      margin-top: 2px;
+      font-family: inherit;
+      box-shadow: 0 2px 8px #23294f22;
+    }
+    .post-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.18em;
+      color: var(--accent);
+      opacity: 0.82;
+      margin-bottom: 4px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .post-username {
+      font-weight: bold;
+      color: var(--primary);
+      letter-spacing: 0.2px;
+      margin-left: 6px;
+      font-size: 1.13em;
+    }
+    .post-time {
+      font-size: 1em;
+      color: #b5b6c5;
+      opacity: 0.77;
+    }
+    .post-text {
+      font-size: 1.21em;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.7;
+      margin-top: 2px;
+      flex: 1;
+      min-height: 43px;
+      display: flex;
+      align-items: flex-start;
+      word-break: break-word;
+    }
+    .post-actions {
+      margin-top: 13px;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 1.18em;
+      cursor: pointer;
+      padding: 0 7px;
+      transition: color 0.2s;
+      border-radius: 5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      font-family: inherit;
+    }
+    .action-btn.editing {
+      color: var(--primary);
+    }
+    .action-btn.reported {
+      color: var(--danger);
+    }
+    .comment-section {
+      margin-top: 20px;
+      padding-right: 12px;
+      padding-left: 12px;
+      border-radius: 16px;
+      background: #23294f44;
+      box-shadow: 0 1px 8px #23294f22;
+      font-size: 1.08em;
+      color: var(--accent);
+      max-width: 97%;
+    }
+    .comment-list {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      margin-bottom: 10px;
+    }
+    .comment-item {
+      margin-bottom: 8px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #37417222;
+      word-break: break-word;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .comment-user {
+      color: var(--primary);
+      font-weight: bold;
+      margin-left: 7px;
+      font-size: 1em;
+    }
+    .comment-text {
+      color: var(--text);
+      font-size: 1em;
+      margin-left: 7px;
+      flex: 1;
+    }
+    .comment-time {
+      font-size: 0.96em;
+      color: #b5b6c5;
+      margin-right: 7px;
+      opacity: 0.76;
+    }
+    .add-comment-form {
+      display: flex;
+      gap: 7px;
+      margin-bottom: 7px;
+      margin-top: 2px;
+    }
+    .add-comment-form input[type="text"] {
+      flex: 0 0 95px;
+      border-radius: 8px;
+      padding: 7px;
+      border: 2px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--text);
+      font-size: 1em;
+      outline: none;
+      margin-left: 4px;
+    }
+    .add-comment-form input:focus {
+      border-color: var(--input-focus);
+    }
+    .add-comment-form textarea {
+      flex: 1;
+      border-radius: 8px;
+      padding: 7px;
+      border: 2px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--text);
+      font-size: 1em;
+      outline: none;
+      resize: vertical;
+      min-height: 32px;
+    }
+    .add-comment-form .comment-btn {
+      background: var(--btn-bg);
+      color: var(--text);
+      border: none;
+      border-radius: 8px;
+      padding: 8px 17px;
+      font-size: 1.05em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 1px 7px #0002;
+      letter-spacing: 0.2px;
+    }
+    .add-comment-form .comment-btn:hover {
+      background: var(--btn-hover);
+      color: #273157;
+    }
+    .empty-posts {
+      text-align: center;
+      color: #b5b6c5;
+      font-size: 1.22em;
+      margin-top: 32px;
+    }
+    .edit-input {
+      width: 100%;
+      border-radius: 8px;
+      border: 2px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--text);
+      font-size: 1.11em;
+      padding: 8px;
+      margin-bottom: 5px;
+      font-family: inherit;
+      outline: none;
+      resize: vertical;
+    }
+    .edit-actions {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .edit-btn {
+      background: var(--btn-bg);
+      color: var(--text);
+      border: none;
+      border-radius: 8px;
+      padding: 8px 17px;
+      font-size: 1em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 1px 7px #0002;
+    }
+    .edit-btn:hover {
+      background: var(--btn-hover);
+      color: #273157;
+    }
+    @media (max-width: 900px) {
+      .community-container {
+        max-width: 99vw;
+        padding: 17px 2vw 17px 2vw;
+      }
+      .post-box {
+        font-size: 1em;
+        padding: 13px 8px 7px 8px;
+        min-height: 85px;
+        gap: 10px;
+      }
+      .post-avatar {
+        width: 44px; height: 44px; font-size: 1.3em;
+      }
+    }
+    @media (max-width: 500px) {
+      .community-title { font-size: 1.3em;}
+      .community-desc { font-size: 1em;}
+      .post-box { gap: 7px; font-size: 0.99em;}
+      .post-avatar { width: 31px; height: 31px; font-size: 1em;}
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-calm">
+    <span class="c1"></span>
+    <span class="c2"></span>
+    <span class="c3"></span>
+  </div>
+  <div class="community-container">
+    <div class="community-title">مجتمع MindSage</div>
+    <div class="community-desc">مجتمع لكل الناس.</div>
+    <button class="add-post-btn" id="addPostBtn">+ إضافة بوست جديد</button>
+    <div class="posts-list" id="postsList"></div>
+    <div class="empty-posts" id="emptyPosts" style="display:none">لسه مفيش بوستات... شارك أول بوست!</div>
+  </div>
+  <!-- Post Modal -->
+  <div class="post-form-modal" id="postModal" style="display:none">
+    <form class="post-form" id="postForm" autocomplete="off">
+      <button type="button" class="close-modal" id="closeModal">&times;</button>
+      <input type="text" id="usernameInput" maxlength="18" placeholder="اسمك أو لقبك (اختياري)" />
+      <textarea id="postInput" rows="3" maxlength="320" placeholder="اكتب البوست بتاعك هنا..." required></textarea>
+      <button type="submit" class="btn">نشر البوست</button>
+      <div class="error" id="errorMsg" style="display:none"></div>
+    </form>
+  </div>
+  <script>
+    // Util: Format time ago in Arabic-Egyptian
+    function timeAgo(date) {
+      const now = Date.now();
+      const diff = Math.floor((now - date) / 1000);
+      if (diff < 60) return `منذ ثواني`;
+      if (diff < 3600) return `منذ ${Math.floor(diff/60)} دقيقة`;
+      if (diff < 86400) return `منذ ${Math.floor(diff/3600)} ساعة`;
+      if (diff < 3*86400) return `منذ ${Math.floor(diff/86400)} يوم`;
+      const d = new Date(date);
+      return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`
+    }
+    // Avatar Emoji generator based on name
+    function getAvatarEmoji(username) {
+      if (!username || !username.trim()) return "👤";
+      const emojis = ["😃","😊","😇","🥲","😎","🦋","🧠","🫶","🌱","🌻","🌙","☀️","💙","💡","🌈","🎧","🔥","🌊","🫂","🤍"];
+      let sum = 0;
+      for (let i=0; i<username.length; i++) sum += username.charCodeAt(i);
+      return emojis[sum % emojis.length];
+    }
+    function loadPosts() {
+      try { return JSON.parse(localStorage.getItem('ms_social_posts') || '[]'); } catch { return [] }
+    }
+    function savePosts(posts) {
+      localStorage.setItem('ms_social_posts', JSON.stringify(posts));
+    }
+    // Comments
+    function loadComments() {
+      try { return JSON.parse(localStorage.getItem('ms_social_comments') || '{}'); } catch { return {} }
+    }
+    function saveComments(comments) {
+      localStorage.setItem('ms_social_comments', JSON.stringify(comments));
+    }
+    // Reports
+    function loadReports() {
+      try { return JSON.parse(localStorage.getItem('ms_social_reports') || '{}'); } catch { return {} }
+    }
+    function saveReports(reports) {
+      localStorage.setItem('ms_social_reports', JSON.stringify(reports));
+    }
+    // Render posts
+    function renderPosts() {
+      const postsList = document.getElementById('postsList');
+      const emptyPosts = document.getElementById('emptyPosts');
+      postsList.innerHTML = '';
+      let posts = loadPosts();
+      if (!Array.isArray(posts)) posts = [];
+      if (posts.length === 0) {
+        emptyPosts.style.display = 'block';
+        return;
+      }
+      emptyPosts.style.display = 'none';
+      let comments = loadComments();
+      let reports = loadReports();
+      posts.slice().reverse().forEach((post, idx) => {
+        const realIdx = posts.length - idx - 1;
+        const box = document.createElement('div');
+        box.className = 'post-box';
+        // Avatar
+        const avatar = document.createElement('div');
+        avatar.className = 'post-avatar';
+        avatar.textContent = getAvatarEmoji(post.username);
+        // Content
+        const content = document.createElement('div');
+        content.className = 'post-content';
+        const header = document.createElement('div');
+        header.className = 'post-header';
+        const usernameSpan = document.createElement('span');
+        usernameSpan.className = 'post-username';
+        usernameSpan.textContent = post.username ? post.username : 'مجهول';
+        const timeSpan = document.createElement('span');
+        timeSpan.className = 'post-time';
+        timeSpan.textContent = timeAgo(post.time);
+        header.appendChild(usernameSpan);
+        header.appendChild(timeSpan);
+        // Text or editing
+        const textDiv = document.createElement('div');
+        textDiv.className = 'post-text';
+        // Editing state
+        if (post.editing) {
+          const editArea = document.createElement('textarea');
+          editArea.className = 'edit-input';
+          editArea.value = post.text;
+          const editActions = document.createElement('div');
+          editActions.className = 'edit-actions';
+          const saveBtn = document.createElement('button');
+          saveBtn.className = 'edit-btn';
+          saveBtn.textContent = 'حفظ التعديل';
+          saveBtn.onclick = function() {
+            let postsArr = loadPosts();
+            postsArr[post.id].text = editArea.value.trim();
+            postsArr[post.id].editing = false;
+            savePosts(postsArr);
+            renderPosts();
+          };
+          const cancelBtn = document.createElement('button');
+          cancelBtn.className = 'edit-btn';
+          cancelBtn.textContent = 'إلغاء';
+          cancelBtn.onclick = function() {
+            let postsArr = loadPosts();
+            postsArr[post.id].editing = false;
+            savePosts(postsArr);
+            renderPosts();
+          };
+          editActions.appendChild(saveBtn);
+          editActions.appendChild(cancelBtn);
+          textDiv.appendChild(editArea);
+          textDiv.appendChild(editActions);
+        } else {
+          textDiv.textContent = post.text;
+        }
+        // Actions: تعليق, حذف, تعديل, إبلاغ إداري
+        const actions = document.createElement('div');
+        actions.className = 'post-actions';
+        // تعليق
+        const commentBtn = document.createElement('button');
+        commentBtn.className = 'action-btn';
+        commentBtn.innerHTML = `💬 تعليق`;
+        commentBtn.onclick = function() {
+          document.getElementById(`comment-input-${post.id}`)?.focus();
+        };
+        actions.appendChild(commentBtn);
+        // Delete (if owner)
+        const localName = localStorage.getItem('ms_social_username') || '';
+        if (post.username && post.username === localName) {
+          const delBtn = document.createElement('button');
+          delBtn.className = 'action-btn';
+          delBtn.innerHTML = '🗑️ حذف';
+          delBtn.onclick = function() {
+            if (confirm('متأكد إنك عايز تحذف البوست؟')) {
+              let postsArr = loadPosts();
+              postsArr.splice(post.id,1);
+              postsArr.forEach((p,i)=>p.id=i);
+              savePosts(postsArr);
+              renderPosts();
+            }
+          };
+          actions.appendChild(delBtn);
+          // تعديل
+          if (!post.editing) {
+            const editBtn = document.createElement('button');
+            editBtn.className = 'action-btn editing';
+            editBtn.innerHTML = '✏️ تعديل';
+            editBtn.onclick = function() {
+              let postsArr = loadPosts();
+              postsArr[post.id].editing = true;
+              savePosts(postsArr);
+              renderPosts();
+            };
+            actions.appendChild(editBtn);
+          }
+        }
+        // إبلاغ إداري
+        const reportBtn = document.createElement('button');
+        reportBtn.className = 'action-btn reported';
+        reportBtn.innerHTML = '🚩 إبلاغ إداري';
+        reportBtn.onclick = function() {
+          let reps = loadReports();
+          reps[post.id] = true;
+          saveReports(reps);
+          alert('تم إرسال بلاغ للإدارة!');
+        };
+        actions.appendChild(reportBtn);
+        content.appendChild(header);
+        content.appendChild(textDiv);
+        content.appendChild(actions);
+        // التعليقات
+        const commentSection = document.createElement('div');
+        commentSection.className = 'comment-section';
+        let postComments = comments[post.id] || [];
+        const commentList = document.createElement('ul');
+        commentList.className = 'comment-list';
+        postComments.forEach((cmt) => {
+          const li = document.createElement('li');
+          li.className = 'comment-item';
+          const user = document.createElement('span');
+          user.className = 'comment-user';
+          user.textContent = cmt.username ? cmt.username : 'مجهول';
+          const txt = document.createElement('span');
+          txt.className = 'comment-text';
+          txt.textContent = cmt.text;
+          const t = document.createElement('span');
+          t.className = 'comment-time';
+          t.textContent = timeAgo(cmt.time);
+          li.appendChild(user);
+          li.appendChild(txt);
+          li.appendChild(t);
+          if (cmt.username && cmt.username === localName) {
+            const delCmt = document.createElement('button');
+            delCmt.className = 'action-btn';
+            delCmt.textContent = '🗑️';
+            delCmt.onclick = function() {
+              let comms = loadComments();
+              comms[post.id] = comms[post.id].filter(x => x !== cmt);
+              saveComments(comms);
+              renderPosts();
+            };
+            li.appendChild(delCmt);
+          }
+          commentList.appendChild(li);
+        });
+        commentSection.appendChild(commentList);
+        // Add comment form
+        const addForm = document.createElement('form');
+        addForm.className = 'add-comment-form';
+        addForm.onsubmit = function(e) {
+          e.preventDefault();
+          const uname = addForm.querySelector('input[type="text"]').value.trim().slice(0,16);
+          const txt = addForm.querySelector('textarea').value.trim();
+          if (!txt) return;
+          let comms = loadComments();
+          if (!comms[post.id]) comms[post.id] = [];
+          comms[post.id].push({ username: uname, text: txt, time: Date.now() });
+          saveComments(comms);
+          if (uname) localStorage.setItem('ms_social_username', uname);
+          addForm.querySelector('textarea').value = '';
+          renderPosts();
+        };
+        const unameInput = document.createElement('input');
+        unameInput.type = 'text';
+        unameInput.placeholder = 'اسمك (اختياري)';
+        unameInput.value = localName;
+        unameInput.maxLength = 16;
+        const txtArea = document.createElement('textarea');
+        txtArea.rows = 1;
+        txtArea.placeholder = 'اكتب تعليقك...';
+        txtArea.id = `comment-input-${post.id}`;
+        const cmtBtn = document.createElement('button');
+        cmtBtn.type = 'submit';
+        cmtBtn.className = 'comment-btn';
+        cmtBtn.textContent = 'نشر';
+        addForm.appendChild(unameInput);
+        addForm.appendChild(txtArea);
+        addForm.appendChild(cmtBtn);
+        commentSection.appendChild(addForm);
+        content.appendChild(commentSection);
+        box.appendChild(avatar);
+        box.appendChild(content);
+        postsList.appendChild(box);
+      });
+    }
+    // Modal logic
+    const addPostBtn = document.getElementById('addPostBtn');
+    const postModal = document.getElementById('postModal');
+    const closeModal = document.getElementById('closeModal');
+    addPostBtn.onclick = function() {
+      postModal.style.display = 'flex';
+      setTimeout(() => document.getElementById('postInput').focus(), 300);
+    };
+    closeModal.onclick = function() {
+      postModal.style.display = 'none';
+      document.getElementById('postInput').value = '';
+      document.getElementById('usernameInput').value = '';
+      document.getElementById('errorMsg').style.display = 'none';
+    };
+    window.onclick = function(e) {
+      if (e.target === postModal) closeModal.onclick();
+    }
+    // Form logic
+    document.getElementById('postForm').onsubmit = function(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById('usernameInput');
+      const input = document.getElementById('postInput');
+      const errorMsg = document.getElementById('errorMsg');
+      const username = nameInput.value.trim().slice(0,18);
+      const text = input.value.trim();
+      errorMsg.style.display = 'none';
+      if (!text) {
+        errorMsg.textContent = 'اكتب البوست الأول قبل النشر.';
+        errorMsg.style.display = 'block';
+        input.style.borderColor = 'var(--danger)';
+        setTimeout(() => { input.style.borderColor = 'var(--input-border)'; }, 600);
+        return;
+      }
+      if (text.length > 320) {
+        errorMsg.textContent = 'النص طويل جدًا. اختصر شوية (حد أقصى ٣٢٠ حرف).';
+        errorMsg.style.display = 'block';
+        return;
+      }
+      let posts = loadPosts();
+      if (!Array.isArray(posts)) posts = [];
+      let id = posts.length;
+      posts.push({ id, username, text, time: Date.now(), editing: false });
+      savePosts(posts);
+      if (username) localStorage.setItem('ms_social_username', username);
+      input.value = '';
+      nameInput.value = '';
+      postModal.style.display = 'none';
+      renderPosts();
+    };
+
+    // حذف كل البوستات القديمة لما الصفحة تفتح
+    localStorage.removeItem('ms_social_posts');
+    localStorage.removeItem('ms_social_comments');
+    localStorage.removeItem('ms_social_reports');
+
+    // Initial render
+    renderPosts();
+    // Optional: Listen for storage changes (multi-tab sync)
+    window.addEventListener('storage', function(e){
+      if (['ms_social_posts','ms_social_comments','ms_social_reports'].includes(e.key)) renderPosts();
+    });
+  </script>
+</body>
+</html>
