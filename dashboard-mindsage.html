@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MindSage Dashboard - Demo</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+    :root {
+      --bg-gradient: linear-gradient(135deg, #23294f 0%, #212c44 100%);
+      --primary: #8be9fd;
+      --accent: #ffb86c;
+      --success: #50fa7b;
+      --danger: #ff5555;
+      --box: #273157;
+      --text: #f7f7fa;
+      --input-bg: #23294f;
+      --shadow: 0 6px 24px rgba(0,0,0,0.09);
+      --badge-gold: linear-gradient(135deg, #ffd700 0%, #ffb86c 100%);
+    }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Cairo', 'Segoe UI', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .bg-calm {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-calm span {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.12;
+      filter: blur(18px);
+      animation: float 12s infinite alternate ease-in-out;
+      background: var(--primary);
+    }
+    .bg-calm .c1 {width: 220px;height:220px;left:7vw;top:14vh;}
+    .bg-calm .c2 {width: 120px;height:120px;right:11vw;top:28vh;background:var(--accent);}
+    .bg-calm .c3 {width:72px;height:72px;left:30vw;top:75vh;background:var(--success);}
+    @keyframes float {
+      to { transform: translateY(30px) scale(1.07);}
+    }
+    .dashboard-container {
+      z-index: 1;
+      background: var(--box);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 38px 22px 32px 22px;
+      max-width: 520px;
+      width: 98vw;
+      margin: 48px auto 24px auto;
+      position: relative;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      animation: fadeIn 1s;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.97);}
+      100% { opacity: 1; transform: scale(1);}
+    }
+    .dashboard-title {
+      font-size: 2.2em;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 2px;
+      letter-spacing: 1px;
+      text-align: center;
+      text-shadow: 0 1px 14px #23294f44;
+    }
+    .dashboard-welcome {
+      color: var(--accent);
+      font-size: 1.08em;
+      margin-bottom: 26px;
+      text-align: center;
+      line-height: 1.7;
+    }
+    .stats-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: linear-gradient(135deg, #23294f 0%, #273157 100%);
+      border-radius: 17px;
+      box-shadow: 0 1px 8px #23294f22;
+      padding: 19px 22px 16px 22px;
+      min-width: 110px;
+      min-height: 70px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: box-shadow 0.2s;
+      position: relative;
+    }
+    .stat-label {
+      font-size: 1em;
+      color: #b5b6c5;
+      font-weight: 500;
+      margin-bottom: 7px;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 2.1em;
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 3px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    .stat-sub {
+      font-size: 1em;
+      color: var(--success);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .progress-section {
+      margin-bottom: 28px;
+    }
+    .progress-label {
+      font-size: 1.16em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 14px;
+      text-align: left;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 17px;
+      background: #23294f;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 8px #23294f44;
+      margin-bottom: 4px;
+    }
+    .progress-bar-inner {
+      height: 100%;
+      background: var(--success);
+      border-radius:8px;
+      transition: width 0.6s cubic-bezier(0.6,0.2,0.23,1.03);
+      width: 0%;
+    }
+    .progress-weeks {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-size: 0.97em;
+      color: #b5b6c5;
+    }
+    .community-section {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .community-label {
+      font-size: 1.1em;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .community-detail {
+      font-size: 1em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .badge-section {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .badge-card {
+      display: inline-block;
+      background: var(--badge-gold);
+      color: #23294f;
+      border-radius: 30px;
+      box-shadow: 0 2px 10px #ffd70033;
+      padding: 13px 34px 11px 34px;
+      font-size: 1.13em;
+      font-weight: 800;
+      letter-spacing: 0.7px;
+      margin-top: 2px;
+      margin-bottom: 5px;
+      animation: badgePop 1.2s;
+      position: relative;
+    }
+    .badge-icon {
+      font-size: 2.2em;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    @keyframes badgePop {
+      0% { transform: scale(0.8); opacity: 0; }
+      80% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 1;}
+    }
+    .badge-desc {
+      font-size: 1em;
+      color: var(--success);
+      margin-top: 7px;
+      margin-bottom: 0px;
+      font-weight: 700;
+    }
+    @media (max-width: 600px) {
+      .dashboard-container {
+        padding: 12px 4vw 12px 4vw;
+        max-width: 99vw;
+      }
+      .stat-card { padding: 10px 7px 8px 7px; min-width: 80px;}
+      .badge-card { padding: 7px 12px;}
+      .badge-icon { font-size: 1.4em; margin-right: 7px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-calm">
+    <span class="c1"></span>
+    <span class="c2"></span>
+    <span class="c3"></span>
+  </div>
+  <div class="dashboard-container">
+    <div class="dashboard-title">Dashboard</div>
+    <div class="dashboard-welcome">Welcome, Marawan! Here’s an overview of your MindSage journey so far.</div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Sessions Taken</div>
+        <div class="stat-value">5</div>
+        <div class="stat-sub">Therapy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Subscription Duration</div>
+        <div class="stat-value" id="subDays">21</div>
+        <div class="stat-sub">days</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">CBT Exercises</div>
+        <div class="stat-value">8</div>
+        <div class="stat-sub">Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Community Posts</div>
+        <div class="stat-value">37</div>
+        <div class="stat-sub">Outstanding</div>
+      </div>
+    </div>
+    <div class="progress-section">
+      <div class="progress-label">Emotional Progress (last 3 weeks)</div>
+      <div class="progress-bar">
+        <div class="progress-bar-inner" id="progressBar"></div>
+      </div>
+      <div class="progress-weeks">
+        <span>Week 1</span>
+        <span>Week 2</span>
+        <span>Week 3</span>
+      </div>
+    </div>
+    <div class="community-section">
+      <div class="community-label">Your Community Impact</div>
+      <div class="community-detail">Your contributions are highly valued and have inspired others.</div>
+      <div class="community-detail">You’re among the most active members this month!</div>
+    </div>
+    <div class="badge-section">
+      <div class="badge-card"><span class="badge-icon">🏅</span> Achiever</div>
+      <div class="badge-desc">Awarded for consistent progress and active participation.</div>
+    </div>
+  </div>
+  <script>
+    // Demo: Animate emotional progress bar for last 3 weeks (e.g. 75%)
+    window.onload = function() {
+      setTimeout(function(){
+        document.getElementById("progressBar").style.width = "75%";
+      }, 400);
+    };
+    // Demo: Calculate subscription days (assume 21 for now)
+    // You can set subDays.innerText programmatically if you want.
+  </script>
+</body>
+</html>
